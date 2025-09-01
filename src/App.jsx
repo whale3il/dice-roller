@@ -4,6 +4,7 @@ import Usestate from './components/Usestate'
 import Product from './components/Product'
 import Yowai from './components/Yowai'
 import Navbar from './components/Navbar'
+import Cart from './components/Cart'
 
 const App = () => {
 
@@ -20,7 +21,8 @@ const App = () => {
       {/* <Usestate/>  */}
       {/* <Product/> */}
       <Navbar/>
-      <Yowai/>
+      {/* <Yowai/> */}
+      <Cart/>
 
     </>
   )

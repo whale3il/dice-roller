@@ -25,14 +25,23 @@
             const [productImage, setProductImage] = useState('')
             const [quantity, setsQuantity] = useState()
             const [allProducts, setAllProducts] = useState([])
-            const [price, setPrice] = useState(0)
 
-            const [count, setCount] = useState(0)
+
+            const [editName, setEditName] = useState('')
+            const [editPrice, setEditPrice] = useState('')
+            const [editDescription, setEditDescription] = useState('')
+            const [editImage, setEditImage] = useState('')
+            const [editQuantity, setEditQuantity] = useState()
+
+           
+
+
 
             const proceed = (event) => {
 
-                        event.preventDefault(); 
                         let newProduct = { id: Date.now(), productDescription, productImage, productName, productPrice: Number(productPrice),quantity: Number(quantity), price: Number(quantity * productPrice) }
+
+                        event.preventDefault(); 
                         setAllProducts([...allProducts, newProduct] )
                         console.log(allProducts);
 
@@ -55,14 +64,26 @@
             }   
 
             const onDelete = (id) => {
-            setAllProducts(allProducts.filter((items) => items.id !== id))
+                setAllProducts(allProducts.filter((items) => items.id !== id))
+                console.log();
+                
+            }
+
+            const openEdit =(items)=>{
+                        setEditName(items.productName),
+                        setEditPrice(items.productPrice),
+                        setEditDescription(items.productDescription),
+                        setEditImage(items.productImage)
+                        setEditQuantity(items.quantity)
+
             }
 
             const onEdit =(id)=>{
-                setAllProducts(allProducts.map(items => items.id === id ? {...items, } : items
 
-                )
-            )
+                setAllProducts(allProducts.map(items => items.id === id ? {...items, productDescription : editDescription, productImage: editImage, productName :editName, productPrice: Number(editPrice),quantity: Number(editQuantity), price: Number(editQuantity * editPrice) } : items))
+
+                console.log(allProducts);
+                
             }
 
             localStorage.setItem('AllProducts', JSON.stringify(allProducts))
@@ -80,7 +101,7 @@
 
             <div className='d-flex px-3 gap-5 flex-column flex-lg-row' style={{backgroundColor:'#f5f5f5', color:'black'}}>
 
-            <div className='border my-4 rounded-3 border-secondary p-2'>
+        <div className='border my-4 rounded-3 border-secondary p-2'>
             <div className='d-flex justify-content-start align-items-center'>
                 <img style={{ width: '20%' }} src={mini} alt="" />
                 <h2 style={{ color: '#dc2f30' }}>Mini-Mart</h2>
@@ -106,7 +127,7 @@
                 </div>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product image url link</label>
-                    <input type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product image link' className='form-control'required productImage onChange={(e) => { setProductImage(e.target.value) }} />
+                    <input type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product image link' className='form-control'required value={productImage} onChange={(e) => { setProductImage(e.target.value) }} />
                 </div>
                 <div className='d-flex justify-content-end me-5 my-3 pe-lg-4'>
                     <button type='submit' className='btn text-white px-3 my-3 fw-semibold py-2 bg-danger'>proceed</button>
@@ -130,7 +151,7 @@
                     <button onClick={() => onDelete(item.id)}>Delete</button> */}
 
 
-                    <div className='d-flex fw-semibold justify-content-between px-3 my-4 border p-3 rounded-3 border-secondary text-white ' style={{ fontSize: '0.8rem', backgroundColor:'#2a2a2a6d' }}>
+                    <div className='d-flex fw-semibold justify-content-between px-3 my-4 border p-3 rounded-3 border-secondary text-white ' style={{ fontSize: '0.8rem', backgroundColor:'#2a2a2a4c' }}>
 
                     <div className='d-flex flex-column'>
                         <p className=''>Product</p>
@@ -211,26 +232,26 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-    <form className='d-flex flex-column gap-3' onSubmit={proceed}>
+    <form className='d-flex flex-column gap-3' onSubmit={openEdit(items)}>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product Name</label>
-                    <input type="text" required style={{ fontSize: '0.8rem' }} placeholder='Enter product Name' className='form-control' value={productName}  onChange={(e) => { setProductName(e.target.value) }} />
+                    <input type="text" required style={{ fontSize: '0.8rem' }} placeholder='Enter product Name' className='form-control' value={editName}  onChange={(e) => { setEditName(e.target.value) }} />
                 </div>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product Price</label>
-                    <input type="number" style={{ fontSize: '0.8rem' }} placeholder='Enter product price' className='form-control' required value={productPrice} onChange={(e) => { setProductPrice(e.target.value) }} />
+                    <input type="number" style={{ fontSize: '0.8rem' }} placeholder='Enter product price' className='form-control' required value={editPrice} onChange={(e) => { setEditPrice(e.target.value) }} />
                 </div>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product Quantity</label>
-                    <input type="number" style={{ fontSize: '0.8rem' }} placeholder='Enter product quantity' className='form-control' required value={quantity} onChange={(e) => { setsQuantity(e.target.value) }} />
+                    <input type="number" style={{ fontSize: '0.8rem' }} placeholder='Enter product quantity' className='form-control' required value={editQuantity} onChange={(e) => { setEditQuantity(e.target.value) }} />
                 </div>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product Description</label>
-                    <textarea type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product description' className='form-control' required value={productDescription} onChange={(e) => { setProductDescription(e.target.value) }} />
+                    <textarea type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product description' className='form-control' required value={editDescription} onChange={(e) => { setEditDescription(e.target.value) }} />
                 </div>
                 <div className='col-11 px-2' >
                     <label htmlFor="Product Name" className='fw-semibold' style={{ fontSize: '0.8rem' }}>Product image url link</label>
-                    <input type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product image link' className='form-control'required productImage onChange={(e) => { setProductImage(e.target.value) }} />
+                    <input type="text" style={{ fontSize: '0.8rem' }} placeholder='Enter product image link' className='form-control'required value={editImage} onChange={(e) => { setEditImage(e.target.value) }} />
                 </div>
                 
             </form>
