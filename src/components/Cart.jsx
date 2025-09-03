@@ -42,7 +42,8 @@ const [editId, setEditId] = useState('')
       setProductName('')
       setProductPrice('')
       setProductDescription('')
-      setProductQuantity('')      
+      setProductQuantity('')  
+      setProductImage('')    
 
   }
 
@@ -80,7 +81,7 @@ const [editId, setEditId] = useState('')
     return (
     <>
         <div className='d-flex gap-2 mt-4 mx-3 flex-column flex-lg-row justify-content-center' id='style'> 
-            <form className='border d-flex mt-2 flex-column col-6 p-3 gap-3' onSubmit={handleEvent}>
+            <form className='border d-flex mt-2 flex-column col-12 col-lg-6 p-3 gap-3' onSubmit={handleEvent}>
                   <div className='d-flex justify-content-start align-items-center'>
                       <img style={{ width: '20%' }} src={mini} alt="" />
                       <h2 style={{ color: '#dc2f30' }}>Mini-Mart</h2>
@@ -113,7 +114,7 @@ const [editId, setEditId] = useState('')
                   </div>
             </form>
 
-                    <div className='col-6 px-3 border my-2' >
+                    <div className='col-12 col-lg-6 px-3 border my-2' >
                       <h3 className='text-center'>Shopping list</h3>
 
                           <div className='row g-3 '>
